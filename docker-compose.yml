@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  pga4volume:
+    external: true
+  rbac_postgres_volume:
+    external: true
+
+
+
+services:
+  rbac_postgres:
+    image: postgres:10.6-alpine
+    ports:
+      - 6999:5432
+    volumes:
+      - rbac_postgres_volume:/var/lib/pgadmin
+    environment:
+      PG_MODE: primary
+      PG_PRIMARY_USER: admin
+      PG_PRIMARY_PASSWORD: admin
+      PG_DATABASE: RBAC_DB
+      PG_USER: admin
+      PG_PASSWORD: admin
+      PG_ROOT_PASSWORD: admin
+      PG_PRIMARY_PORT: 5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    volumes:
+      - pga4volume:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: wbekalti@batvoice.com
+      PGADMIN_DEFAULT_PASSWORD: batvoice
+      SERVER_PORT: 80
