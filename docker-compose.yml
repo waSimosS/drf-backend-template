@@ -3,7 +3,7 @@ version: '3'
 volumes:
   pga4volume:
     external: true
-  rbac_postgres_volume:
+  backend_volume:
     external: true
 
 
@@ -14,15 +14,10 @@ services:
     ports:
       - 6999:5432
     volumes:
-      - rbac_postgres_volume:/var/lib/pgadmin
+      - backend_volume:/var/lib/pgadmin
     environment:
       PG_MODE: primary
-      PG_PRIMARY_USER: admin
-      PG_PRIMARY_PASSWORD: admin
-      PG_DATABASE: RBAC_DB
-      PG_USER: admin
-      PG_PASSWORD: admin
-      PG_ROOT_PASSWORD: admin
+      PG_PRIMARY_USER: postgres
       PG_PRIMARY_PORT: 5432
 
   pgadmin:
